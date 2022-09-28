@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: hambaam-gateway
+  cloud:
+    config:
+      uri: http://config-srv:8888

@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+  neo-hambaam-gateway:
+    image: repo.sadad.co.ir/repository/baam-docker-registry/hambaam-gateway:BUILD_NUMBER
+    hostname: hambaam-gateway-srv
+    container_name: hambaam-gateway
+    networks:
+      neo-baam:
+        aliases:
+          - hambaam-gateway-srv
+    ports:
+      - 7502:7502
+      - 9502:9502
+    tty: true
+    extra_hosts:
+      - config-srv:192.168.53.73
+      - sso2:185.135.30.10
+    volumes:
+      - /var/log/hambaam-gateway:/var/log/hambaam-gateway
+      - /opt/configs/hambaam-gateway:/opt/configs/hambaam-gateway
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - JVM_OPTS=-Dfile.encoding=UTF8
+    working_dir: /
+    build: .
+    restart: always
+    command: [ "/usr/bin/java","-jar", "/hambaam-gateway-0.0.1-SNAPSHOT.jar" ]
+networks:
+  neo-baam:
+    driver: bridge

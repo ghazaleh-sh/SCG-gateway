@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "scopes.push-notification",
+      "type": "java.lang.String",
+      "description": "Description for scopes.push-notification."
+    },
+    {
+      "name": "api.sso-token",
+      "type": "java.lang.String",
+      "description": "Description for api.sso-token."
+    },
+    {
+      "name": "scopes.push-notification",
+      "type": "java.lang.String",
+      "description": "Description for scopes.push-notification."
+    }
+  ] }
