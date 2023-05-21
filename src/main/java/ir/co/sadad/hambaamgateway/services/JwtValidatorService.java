@@ -13,6 +13,9 @@ import java.text.ParseException;
 
 import static ir.co.sadad.hambaamgateway.Constant.*;
 
+/**
+ * @author g.shahrokhabadi
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -50,6 +53,7 @@ public class JwtValidatorService {
 //        headers.add(HttpHeaders.AUTHORIZATION, authenticationToken.getJwtToken());
         headers.add("ssn",authenticationToken.getClaims().getClaim("ssn").toString());
         headers.add("serialId",authenticationToken.getClaims().getClaim("serial").toString());
+        headers.add("clientId",authenticationToken.getClaims().getClaim("client_id").toString());
         return headers;
 
     }

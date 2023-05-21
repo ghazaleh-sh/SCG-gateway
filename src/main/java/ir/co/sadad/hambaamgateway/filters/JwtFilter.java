@@ -13,7 +13,9 @@ import reactor.core.publisher.Mono;
 
 /**
  * Due to the nature of the filter chain, a filter with lower precedence (a lower order in the chain)
- * will execute its “pre” logic in an earlier stage, but it's “post” implementation will get invoked later:
+ * will execute its “pre” logic in an earlier stage, but it's “post” implementation will get invoked later.
+ *
+ * @author g.shahrokhabadi
  */
 @Slf4j
 @RequiredArgsConstructor

@@ -8,7 +8,9 @@ public interface Constant {
     String SPACE = " ";
     String EMPTY_STRING = "";
     String BEARER__PREFIX = "Bearer ";
-    String CHECK_VERSION_PATH = "/check-version-api/resources/version/history/**";
+    String CAR_TOLL_PATH = "/car-toll-api/";
+
+    String AVATAR_API_PATH = "/avatar-api/";
     String REMOTE_CONFIG_PATH = "/remote-config/";
 
 }

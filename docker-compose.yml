@@ -14,6 +14,11 @@ services:
     tty: true
     extra_hosts:
       - config-srv:192.168.53.73
+      - check-version:192.168.53.73
+      - remote-config-srv:192.168.53.73
+      - car-toll:192.168.53.73
+      - notice-api-srv:192.168.53.73
+      - avatar-api-srv:192.168.53.73
       - sso2:185.135.30.10
     volumes:
       - /var/log/hambaam-gateway:/var/log/hambaam-gateway

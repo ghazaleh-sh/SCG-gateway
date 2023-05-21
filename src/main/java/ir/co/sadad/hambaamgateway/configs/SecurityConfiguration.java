@@ -28,8 +28,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ir.co.sadad.hambaamgateway.Constant.REMOTE_CONFIG_PATH;
+import static ir.co.sadad.hambaamgateway.Constant.*;
 
+/**
+ * methods run whenever service is started
+ *
+ * @author g.shahrokhabadi
+ */
 @Slf4j
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
@@ -57,14 +62,16 @@ public class SecurityConfiguration {
      *
      * using for check-version api
      *
-     * @param http
-     * @return
+     * @param http ServerHttpSecurity
+     * @return SecurityWebFilterChain
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityWebFilterChain ssoBasedSecurityConfig(ServerHttpSecurity http) {
 
         final List<String> paths = Arrays.asList(permittedRoute.split(";"));
+        String carTollPath = paths.stream().filter(p -> p.contains(CAR_TOLL_PATH)).collect(Collectors.toList()).get(0);
+        String avatarPath = paths.stream().filter(p -> p.contains(AVATAR_API_PATH)).collect(Collectors.toList()).get(0);
 
         return http
                 .logout().disable()
@@ -85,7 +92,10 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.POST).permitAll()
+                .pathMatchers(HttpMethod.PUT).permitAll()
                 .pathMatchers(HttpMethod.GET).permitAll()
+                .pathMatchers(HttpMethod.DELETE, carTollPath).permitAll()
+                .pathMatchers(HttpMethod.DELETE, avatarPath).permitAll()
                 .pathMatchers("/authentication/**").denyAll()
                 .pathMatchers(String.valueOf(paths)).authenticated()
                 .anyExchange().authenticated()
@@ -96,8 +106,8 @@ public class SecurityConfiguration {
      * this method checks the path matches with the scope and then authorizes it.
      * otherwise sends "UNAUTHORIZED_OR_EXPIRED" error as a response
      *
-     * @param http
-     * @return
+     * @param http ServerHttpSecurity
+     * @return SecurityWebFilterChain
      */
     @Bean
     @Order(Ordered.LOWEST_PRECEDENCE)
@@ -124,6 +134,7 @@ public class SecurityConfiguration {
                 .httpBasic().disable()
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.POST).permitAll()
+                .pathMatchers(HttpMethod.PUT).permitAll()
                 .pathMatchers(HttpMethod.GET, remoteConfigPath).permitAll()
                 .pathMatchers("/api/**").hasAuthority(scope)
                 .anyExchange().authenticated()
